@@ -10,7 +10,6 @@ int main() {
     map<string, tuple<int, string, string>> villagerMap;
     string searchKey;
 
-    /*
     // insert elements into the map
     // note how the right-hand side of the assignment are the vector elements
     villagerMap["Audie"] = {6, "Beetle", "Gotta go fast!"};
@@ -24,9 +23,9 @@ int main() {
         cout << get<0>(pair.second) << ", " << get<1>(pair.second) << ", " << get<2>(pair.second) << endl;
         cout << endl;
     }
-
+    
   
-
+    /*
     // delete an element
     cout << "Now deleting a villager... ";
     villagerMap.erase("Raymond");
@@ -41,7 +40,6 @@ int main() {
         cout << endl;
     }
     */
-
 
     int choice = 0;
     while(choice != 4) {
@@ -75,13 +73,12 @@ int main() {
                 }
             }
             else if (choice == 2) {
-                if (choice == 1) {
                 cout << "Enter the name of the villager you would like to increase their friendship level: " << endl;
                 cin >> searchKey;
                 auto it = villagerMap.find(searchKey);
                 if (it != villagerMap.end()) {  // the iterator points to beyond the end of the map
                                                 // if searchKey is not found
-                    cout << "\nIncreasing " << searchKey << "'s friendship level: ";
+                    cout << "\nDecreasing " << searchKey << "'s friendship level: ";
                     get<0>(it->second) -= 1;
                     cout << "\nUpdated Villagers and their details:" << endl;
                     for (map<string, tuple<int, string, string>>::iterator it = villagerMap.begin(); 
@@ -95,7 +92,7 @@ int main() {
                 cout << endl << searchKey << " not found." << endl;
                 }
             }
-                /*
+            /*
                 cout << "Enter the name of the villager you'd like to delete: ";
                 cin >> searchKey;
                 auto it = villagerMap.find(searchKey);
@@ -111,8 +108,7 @@ int main() {
                         cout << endl;
                 }
             }
-        }
-        */
+                */
             else if (choice == 3) {
                 cout << "Enter the name of the villager you would like to search for: " << endl;
                 cin >> searchKey;
@@ -133,10 +129,8 @@ int main() {
                     cout << endl;
                     }
                 }
-
             }   
         }
     }
-}
     return 0;
 }
