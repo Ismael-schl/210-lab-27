@@ -40,10 +40,7 @@ int main() {
         cout << endl;
     }
 
-    // report size, clear, report size again to confirm map operations
-    cout << "\nSize before clear: " << villagerMap.size() << endl;
-    villagerMap.clear();
-    cout << "Size after clear: " << villagerMap.size() << endl;
+
 
     int choice = 0;
     while(choice != 4) {
@@ -52,15 +49,33 @@ int main() {
                 << "3. Search for Villager" << endl
                 << "4. Exit" << endl;
         cin >> choice;
-        if (choice != 1 || choice != 2 || choice != 3) {
+        if (choice < 1 || choice > 4) {
             cout << "Choice must be 1, 2, 3, 4";
         }
         else {
             if (choice == 1) {
-
+                cout << "Enter the name of the villager you would like to increase their friendship level: " << endl;
+                cin >> searchKey;
+                auto it = villagerMap.find(searchKey);
+                if (it != villagerMap.end()) {  // the iterator points to beyond the end of the map
+                                                // if searchKey is not found
+                    cout << "\nIncreasing " << searchKey << "'s friendship level: ";
+                    get<0>(it->second) += 1;
+                    cout << "\nUpdated Villagers and their details:" << endl;
+                    for (map<string, tuple<int, string, string>>::iterator it = villagerMap.begin(); 
+                                                            it != villagerMap.end(); ++it) {
+                        cout << it->first << ": ";
+                        cout << get<0>(it->second) << ", " << get<1>(it->second) << ", " << get<2>(it->second);
+                        cout << endl;
+                }
+                } 
+                else {
+                cout << endl << searchKey << " not found." << endl;
+                }
             }
             else if (choice == 2) {
-
+                cout << "Enter the name of the villager you'd like to delete: ";
+                cin >> searchKey;
             }
             else if (choice == 3) {
                 cout << "Enter the name of the villager you would like to search for: " << endl;
@@ -83,7 +98,9 @@ int main() {
                 }
         }
 
-    }
+    }   
+}
+}
 
     return 0;
 }
