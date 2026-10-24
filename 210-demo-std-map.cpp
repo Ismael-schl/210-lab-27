@@ -6,13 +6,13 @@ using namespace std;
 
 int main() {
     // declarations
-    map<string, vector<string>> villagerColors;
+    map<string, tuple<int, string, string>> villagerColors;
 
     // insert elements into the map
     // note how the right-hand side of the assignment are the vector elements
-    villagerColors["Audie"] = {"Orange", "Yellow", "Red"};
-    villagerColors["Raymond"] = {"Black", "Gray", "White"};
-    villagerColors.insert({"Marshal", {"Blue", "White", "Black"}});
+    villagerColors["Audie"] = {6, "Beetle", "Gotta go fast!"};
+    villagerColors["Raymond"] = {7, "Hedgehog", "Nice shot!"};
+    villagerColors.insert({"Marshal", {2, "Lizard", "Misson failed."}});
 
     // access the map using a range-based for loop
     cout << "Villagers and their favorite colors (range-based for loop):" << endl;
