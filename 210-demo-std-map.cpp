@@ -10,6 +10,7 @@ int main() {
     map<string, tuple<int, string, string>> villagerMap;
     string searchKey;
 
+    /*
     // insert elements into the map
     // note how the right-hand side of the assignment are the vector elements
     villagerMap["Audie"] = {6, "Beetle", "Gotta go fast!"};
@@ -39,7 +40,7 @@ int main() {
         cout << get<0>(it->second) << ", " << get<1>(it->second) << ", " << get<2>(it->second);
         cout << endl;
     }
-
+    */
 
 
     int choice = 0;
@@ -74,9 +75,44 @@ int main() {
                 }
             }
             else if (choice == 2) {
+                if (choice == 1) {
+                cout << "Enter the name of the villager you would like to increase their friendship level: " << endl;
+                cin >> searchKey;
+                auto it = villagerMap.find(searchKey);
+                if (it != villagerMap.end()) {  // the iterator points to beyond the end of the map
+                                                // if searchKey is not found
+                    cout << "\nIncreasing " << searchKey << "'s friendship level: ";
+                    get<0>(it->second) -= 1;
+                    cout << "\nUpdated Villagers and their details:" << endl;
+                    for (map<string, tuple<int, string, string>>::iterator it = villagerMap.begin(); 
+                                                            it != villagerMap.end(); ++it) {
+                        cout << it->first << ": ";
+                        cout << get<0>(it->second) << ", " << get<1>(it->second) << ", " << get<2>(it->second);
+                        cout << endl;
+                }
+                }
+                else {
+                cout << endl << searchKey << " not found." << endl;
+                }
+            }
+                /*
                 cout << "Enter the name of the villager you'd like to delete: ";
                 cin >> searchKey;
+                auto it = villagerMap.find(searchKey);
+                if (it != villagerMap.end()) {  // the iterator points to beyond the end of the map
+                                                // if searchKey is not found
+                    cout << "\nDeleting " << searchKey << " from the list: ";
+                    villagerMap.erase(searchKey);
+                    cout << "\nUpdated Villagers and their details:" << endl;
+                    for (map<string, tuple<int, string, string>>::iterator it = villagerMap.begin(); 
+                                                            it != villagerMap.end(); ++it) {
+                        cout << it->first << ": ";
+                        cout << get<0>(it->second) << ", " << get<1>(it->second) << ", " << get<2>(it->second);
+                        cout << endl;
+                }
             }
+        }
+        */
             else if (choice == 3) {
                 cout << "Enter the name of the villager you would like to search for: " << endl;
                 cin >> searchKey;
@@ -95,12 +131,12 @@ int main() {
                     cout << it->first << ": ";
                     cout << get<0>(it->second) << ", " << get<1>(it->second) << ", " << get<2>(it->second);
                     cout << endl;
+                    }
                 }
+
+            }   
         }
-
-    }   
+    }
 }
-}
-
     return 0;
 }
