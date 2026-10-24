@@ -17,7 +17,7 @@ int main() {
     villagerMap.insert({"Marshal", {2, "Lizard", "Misson failed."}});
 
     // access the map using a range-based for loop
-    cout << "Villagers and their friendship level, species, and catchphrase (range-based for loop):" << endl;
+    cout << "Starting list of villagers and their friendship level, species, and catchphrase (range-based for loop):" << endl;
     for (auto pair : villagerMap) {
         cout << pair.first << ": ";
         cout << get<0>(pair.second) << ", " << get<1>(pair.second) << ", " << get<2>(pair.second) << endl;
@@ -42,7 +42,7 @@ int main() {
     */
 
     int choice = 0;
-    while(choice != 4) {
+    while(choice != 6) {
         cout <<    "1. Increase Friendship" << endl
                 << "2. Decrease Friendship" << endl
                 << "3. Search for Villager" << endl
@@ -59,6 +59,9 @@ int main() {
                 if (it != villagerMap.end()) {  // the iterator points to beyond the end of the map
                                                 // if searchKey is not found
                     cout << "\nIncreasing " << searchKey << "'s friendship level: ";
+                    if (get<0>(it->second)) {
+                        get<0>(it->second) +=1;
+                    }
                     get<0>(it->second) += 1;
                     cout << "\nUpdated Villagers and their details:" << endl;
                     for (map<string, tuple<int, string, string>>::iterator it = villagerMap.begin(); 
@@ -73,13 +76,15 @@ int main() {
                 }
             }
             else if (choice == 2) {
-                cout << "Enter the name of the villager you would like to increase their friendship level: " << endl;
+                cout << "Enter the name of the villager you would like to decrease their friendship level: " << endl;
                 cin >> searchKey;
                 auto it = villagerMap.find(searchKey);
                 if (it != villagerMap.end()) {  // the iterator points to beyond the end of the map
                                                 // if searchKey is not found
                     cout << "\nDecreasing " << searchKey << "'s friendship level: ";
-                    get<0>(it->second) -= 1;
+                    if (get<0>(it->second)!= 0) {
+                         get<0>(it->second) -= 1;
+                    }
                     cout << "\nUpdated Villagers and their details:" << endl;
                     for (map<string, tuple<int, string, string>>::iterator it = villagerMap.begin(); 
                                                             it != villagerMap.end(); ++it) {
@@ -115,8 +120,8 @@ int main() {
                 auto it = villagerMap.find(searchKey);
                 if (it != villagerMap.end()) {  // the iterator points to beyond the end of the map
                                                 // if searchKey is not found
-                    cout << "\nFound " << searchKey << "'s species and catchphrase: ";
-                    cout << get<1>(it->second) << ", " << get<2>(it->second); // range loop to traverse the value/vector
+                    cout << "\nFound " << searchKey << "'s details: ";
+                    cout << get<0>(it->second) << ", " << get<1>(it->second) << ", " << get<2>(it->second); // range loop to traverse the value/vector
                     cout << endl;
                 } 
                 else {
