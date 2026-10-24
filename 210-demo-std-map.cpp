@@ -1,6 +1,7 @@
 //Lab 27 | COMSC 210 | Ismael Hadi
 #include <iostream>
 #include <map>
+#include <string>
 #include <vector>
 using namespace std;
 
@@ -17,7 +18,7 @@ int main() {
     villagerMap.insert({"Marshal", {2, "Lizard", "Misson failed."}});
 
     // access the map using a range-based for loop
-    cout << "Starting list of villagers and their friendship level, species, and catchphrase (range-based for loop):" << endl;
+    cout << "Starting list of villagers and their friendship level, species, and catchphrase:" << endl;
     for (auto pair : villagerMap) {
         cout << pair.first << ": ";
         cout << get<0>(pair.second) << ", " << get<1>(pair.second) << ", " << get<2>(pair.second) << endl;
@@ -43,13 +44,18 @@ int main() {
 
     int choice = 0;
     while(choice != 6) {
-        cout <<    "1. Increase Friendship" << endl
-                << "2. Decrease Friendship" << endl
-                << "3. Search for Villager" << endl
-                << "4. Exit" << endl;
+        cout    << "1. Add Villager" << endl
+                << "2. Delete Villager" << endl
+                << "3. Increase Friendship" << endl
+                << "4. Decrease Friendship" << endl
+                << "5. Search for Villager" << endl
+                << "6. Exit" << endl;
         cin >> choice;
-        if (choice < 1 || choice > 6) {
+        if (cin.fail() || choice < 1 || choice > 6) {
             cout << "Choice must be 1, 2, 3, 4, 5, 6";
+            cin.clear();
+            cin.ignore(10000, '\n');
+            choice = 0;
         }
         else {
             if (choice == 1) {
@@ -59,14 +65,15 @@ int main() {
                 string catchphrase;
                 cout << "Villager name: ";
                 cin >> newName;
-                cout << "\nFriendship level: ";
+                cout << "Friendship level between 0 and 10: ";
                 cin >> newFlevel;
-                cout << "\nSpecies: ";
+                cout << "Species: ";
                 cin >> species;
-                cout << "\nCatchphrase: ";
-                cin >> catchphrase;
+                cout << "Catchphrase: ";
+                cin.ignore(10000, '\n');
+                getline(cin, catchphrase);
                 cout << endl << newName << " added." << endl;
-                villagerMap[newName] = {newFlevel, species, "Gotta go fast!"};
+                villagerMap[newName] = {newFlevel, species, catchphrase};
             }
             else if (choice == 2) {
                 cout << "Enter the name of the villager you'd like to delete: ";
@@ -82,8 +89,11 @@ int main() {
                         cout << it->first << ": ";
                         cout << get<0>(it->second) << ", " << get<1>(it->second) << ", " << get<2>(it->second);
                         cout << endl;
+                    }
                 }
-            }
+                else {
+                    cout << searchKey << " not found." << endl;
+                }
             }
             else if (choice == 3) {
                 cout << "Enter the name of the villager you would like to increase their friendship level: " << endl;
@@ -92,10 +102,9 @@ int main() {
                 if (it != villagerMap.end()) {  // the iterator points to beyond the end of the map
                                                 // if searchKey is not found
                     cout << "\nIncreasing " << searchKey << "'s friendship level: ";
-                    if (get<0>(it->second)) {
+                    if (get<0>(it->second) < 10) {
                         get<0>(it->second) +=1;
                     }
-                    get<0>(it->second) += 1;
                     cout << "\nUpdated Villagers and their details:" << endl;
                     for (map<string, tuple<int, string, string>>::iterator it = villagerMap.begin(); 
                                                             it != villagerMap.end(); ++it) {
@@ -152,6 +161,12 @@ int main() {
                 }
             }   
         }
+    }
+    cout << "Final list of villagers and their friendship level, species, and catchphrase:" << endl;
+    for (auto pair : villagerMap) {
+        cout << pair.first << ": ";
+        cout << get<0>(pair.second) << ", " << get<1>(pair.second) << ", " << get<2>(pair.second) << endl;
+        cout << endl;
     }
     return 0;
 }
