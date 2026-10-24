@@ -48,11 +48,44 @@ int main() {
                 << "3. Search for Villager" << endl
                 << "4. Exit" << endl;
         cin >> choice;
-        if (choice < 1 || choice > 4) {
-            cout << "Choice must be 1, 2, 3, 4";
+        if (choice < 1 || choice > 6) {
+            cout << "Choice must be 1, 2, 3, 4, 5, 6";
         }
         else {
             if (choice == 1) {
+                string newName;
+                int newFlevel;
+                string species;
+                string catchphrase;
+                cout << "Villager name: ";
+                cin >> newName;
+                cout << "\nFriendship level: ";
+                cin >> newFlevel;
+                cout << "\nSpecies: ";
+                cin >> species;
+                cout << "\nCatchphrase: ";
+                cin >> catchphrase;
+                cout << endl << newName << " added." << endl;
+                villagerMap[newName] = {newFlevel, species, "Gotta go fast!"};
+            }
+            else if (choice == 2) {
+                cout << "Enter the name of the villager you'd like to delete: ";
+                cin >> searchKey;
+                auto it = villagerMap.find(searchKey);
+                if (it != villagerMap.end()) {  // the iterator points to beyond the end of the map
+                                                // if searchKey is not found
+                    cout << "\nDeleting " << searchKey << " from the list: ";
+                    villagerMap.erase(searchKey);
+                    cout << "\nUpdated Villagers and their details:" << endl;
+                    for (map<string, tuple<int, string, string>>::iterator it = villagerMap.begin(); 
+                                                            it != villagerMap.end(); ++it) {
+                        cout << it->first << ": ";
+                        cout << get<0>(it->second) << ", " << get<1>(it->second) << ", " << get<2>(it->second);
+                        cout << endl;
+                }
+            }
+            }
+            else if (choice == 3) {
                 cout << "Enter the name of the villager you would like to increase their friendship level: " << endl;
                 cin >> searchKey;
                 auto it = villagerMap.find(searchKey);
@@ -75,7 +108,7 @@ int main() {
                 cout << endl << searchKey << " not found." << endl;
                 }
             }
-            else if (choice == 2) {
+            else if (choice == 4) {
                 cout << "Enter the name of the villager you would like to decrease their friendship level: " << endl;
                 cin >> searchKey;
                 auto it = villagerMap.find(searchKey);
@@ -97,24 +130,7 @@ int main() {
                 cout << endl << searchKey << " not found." << endl;
                 }
             }
-            /*
-                cout << "Enter the name of the villager you'd like to delete: ";
-                cin >> searchKey;
-                auto it = villagerMap.find(searchKey);
-                if (it != villagerMap.end()) {  // the iterator points to beyond the end of the map
-                                                // if searchKey is not found
-                    cout << "\nDeleting " << searchKey << " from the list: ";
-                    villagerMap.erase(searchKey);
-                    cout << "\nUpdated Villagers and their details:" << endl;
-                    for (map<string, tuple<int, string, string>>::iterator it = villagerMap.begin(); 
-                                                            it != villagerMap.end(); ++it) {
-                        cout << it->first << ": ";
-                        cout << get<0>(it->second) << ", " << get<1>(it->second) << ", " << get<2>(it->second);
-                        cout << endl;
-                }
-            }
-                */
-            else if (choice == 3) {
+            else if (choice == 5) {
                 cout << "Enter the name of the villager you would like to search for: " << endl;
                 cin >> searchKey;
                 auto it = villagerMap.find(searchKey);
